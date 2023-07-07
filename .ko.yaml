@@ -1,107 +1,122 @@
-defaultBaseImage: ghcr.io/distroless/alpine-base:latest
+defaultBaseImage: cgr.dev/chainguard/alpine-base:latest
 
 builds:
 - id: ctlog
   dir: .
   main: ./cmd/ctlog/createctconfig
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: fulcio
   dir: .
   main: ./cmd/fulcio/createcerts
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: tuf
   dir: .
   main: ./cmd/tuf/createsecret
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
+
+- id: tuf-server
+  dir: .
+  main: ./cmd/tuf/server
+  env:
+    - CGO_ENABLED=0
+  flags:
+    - -trimpath
+    - -tags
+    - nostackdriver
+  ldflags:
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: trillian-createtree
   dir: .
   main: ./cmd/trillian/createtree
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: trillian-createdb
   dir: .
   main: ./cmd/trillian/createdb
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: getoidctoken
   dir: .
   main: ./cmd/getoidctoken
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"
 
 - id: prober
   dir: .
   main: ./cmd/prober
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
   flags:
-  - -trimpath
-  - -tags
-  - nostackdriver
+    - -trimpath
+    - -tags
+    - nostackdriver
   ldflags:
-  - -s
-  - -w
-  - -extldflags "-static"
-  - "{{ .Env.LDFLAGS }}"
+    - -s
+    - -w
+    - -extldflags "-static"
+    - "{{ .Env.LDFLAGS }}"

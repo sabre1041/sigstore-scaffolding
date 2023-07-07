@@ -22,9 +22,6 @@ import (
 	"path/filepath"
 
 	"github.com/sigstore/scaffolding/pkg/repo"
-	"github.com/sigstore/scaffolding/pkg/secret"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
 	"knative.dev/pkg/logging"
 	"knative.dev/pkg/signals"
 	"sigs.k8s.io/release-utils/version"
@@ -42,23 +39,23 @@ var (
 func main() {
 	flag.Parse()
 
-	ns := os.Getenv("NAMESPACE")
-	if ns == "" {
-		panic("env variable NAMESPACE must be set")
-	}
+	// ns := os.Getenv("NAMESPACE")
+	// if ns == "" {
+	// 	panic("env variable NAMESPACE must be set")
+	// }
 	ctx := signals.NewContext()
 
 	versionInfo := version.GetVersionInfo()
 	logging.FromContext(ctx).Infof("running create_repo Version: %s GitCommit: %s BuildDate: %s", versionInfo.GitVersion, versionInfo.GitCommit, versionInfo.BuildDate)
 
-	config, err := rest.InClusterConfig()
-	if err != nil {
-		logging.FromContext(ctx).Panicf("Failed to get InClusterConfig: %v", err)
-	}
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		logging.FromContext(ctx).Panicf("Failed to get clientset: %v", err)
-	}
+	// config, err := rest.InClusterConfig()
+	// if err != nil {
+	// 	logging.FromContext(ctx).Panicf("Failed to get InClusterConfig: %v", err)
+	// }
+	// clientset, err := kubernetes.NewForConfig(config)
+	// if err != nil {
+	// 	logging.FromContext(ctx).Panicf("Failed to get clientset: %v", err)
+	// }
 
 	// Read the Rekor file
 	rekor, err := ioutil.ReadFile(*rekorPubKey)
@@ -104,10 +101,10 @@ func main() {
 	data := make(map[string][]byte)
 	data["root"] = rootJSON
 
-	nsSecret := clientset.CoreV1().Secrets(ns)
-	if err := secret.ReconcileSecret(ctx, *secretName, ns, data, nsSecret); err != nil {
-		logging.FromContext(ctx).Panicf("Failed to reconcile secret %s/%s: %v", ns, *secretName, err)
-	}
+	// nsSecret := clientset.CoreV1().Secrets(ns)
+	// if err := secret.ReconcileSecret(ctx, *secretName, ns, data, nsSecret); err != nil {
+	// 	logging.FromContext(ctx).Panicf("Failed to reconcile secret %s/%s: %v", ns, *secretName, err)
+	// }
 	// Serve the TUF repository.
 	logging.FromContext(ctx).Infof("tuf repository was created in: %s", dir)
 	serveDir := filepath.Join(dir, "repository")
