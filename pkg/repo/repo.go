@@ -30,6 +30,7 @@ import (
 	"time"
 
 	"github.com/theupdateframework/go-tuf"
+	"github.com/theupdateframework/go-tuf/data"
 	"knative.dev/pkg/logging"
 )
 
@@ -80,7 +81,7 @@ func CreateRepoWithMetadata(ctx context.Context, targets []TargetWithMetadata) (
 	expires := time.Now().AddDate(0, 6, 0)
 
 	for _, role := range []string{"root", "targets", "snapshot", "timestamp"} {
-		_, err := r.GenKeyWithExpires(role, expires)
+		_, err := r.GenKeyWithSchemeAndExpires(role, expires, data.KeySchemeECDSA_SHA2_P256)
 		if err != nil {
 			return nil, "", fmt.Errorf("failed to GenKeyWithExpires: %w", err)
 		}
